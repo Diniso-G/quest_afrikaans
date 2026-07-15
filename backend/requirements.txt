@@ -1,0 +1,16 @@
+google-genai
+python-dotenv
+pandas
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+pydantic-settings
+email-validator
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
+plotly
+openpyxl
+jinja2
+python-multipart
