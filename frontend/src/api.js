@@ -7,7 +7,7 @@ console.log("API URL", API_URL);
 const api = axios.create({ baseURL: API_URL });
 
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("akq_token");
+    const token = localStorage.getItem("afq_token");
     if(token) 
         config.headers.Authorization = `Bearer ${token}`;
     return config;

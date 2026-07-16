@@ -43,13 +43,13 @@ export default function Registration() {
             <div className="auth-wrap">
                 <div className="auth-brand">
                     <h1>QUEST_AFRIKAANS</h1>
-                    <p>Become fluent in Afrikaans</p>
+                    <p>Become fluent in Afrikaans/ Word vlot in Afrikaans</p>
                 </div>
                 <div className="auth-card">
                     <div id="authMessage" className="auth-error"></div>
                     <div id="registerForm">
-                        <h2> Create an account</h2>
-                        <p> Create account and start hunting bugs. </p>
+                        <h2> Begin jou reis</h2>
+                        <p> Start your Afrikaans learning journey. </p>
                         {error && <div className="error-banner"> {error}</div>}
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">

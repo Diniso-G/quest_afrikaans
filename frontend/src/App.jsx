@@ -18,7 +18,7 @@ function TopBar() {
             {user && (
                 <>
                     <div className="nav-links">
-                        <Link to="dashboard" className={isActive("/dashboard") ? "active" : ""}>Dasboard</Link> 
+                        <Link to="/dashboard" className={isActive("/dashboard") ? "active" : ""}>Dasboard</Link> 
                     </div>
                 </>
             )}

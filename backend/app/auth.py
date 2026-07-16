@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.util import deprecated
 
 from app.config import settings
-from app.database import get_db
+from app.database import get_db, SessionLocal
 
 '''
 #Tried different version but still keep for reference
@@ -49,15 +49,15 @@ def decode_access_token(token:str) -> dict | None:
 
 def get_current_user(token:str = Depends(oauth_scheme)):
     """Dependency to protect routes. Raises 401 if the token is missing or invalid."""
-    from app.models import SessionLocal, User #Avoids Circular imports //RESEARCH MORE ON TOPIC
+    from app.models import User #Avoids Circular imports //RESEARCH MORE ON TOPIC
     payload = decode_access_token(token)
     if payload is None:
         raise HTTPException(status_code=401, detail="Invalid or expeired token")
 
-    email = payload.get("sub")
+    user_id = payload.get("sub")
     db: Session = SessionLocal()
     try:
-        user = db.query(User).filter(User.email == email).first()
+        user = db.query(User).filter(User.id == int(user_id)).first()
         if user is None:
             raise HTTPException(status_code=401, detail="User not found")
         return user

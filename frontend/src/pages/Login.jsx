@@ -36,13 +36,13 @@ export default function Login() {
             <div class="auth-wrap">
                 <div class="auth-brand">
                     <h1>QUEST_AFRIKAANS</h1>
-                    <p>Become fluent in afrikaans</p>
+                    <p>Become fluent in afrikaanns/Word vlot in Afrikaans</p>
                 </div>
                 <div className="auth-card">
                     <div id="authMessage" class="auth-error"></div>
                     <div id="loginForm">
-                        <h2> Welcome back</h2>
-                        <p> Sign in to pick up where your last case left off </p>
+                        <h2> Welkom terug</h2>
+                        <p> Sign in to continue learning Afrikaans </p>
                         {error && <div className="error-banner"> {error}</div>}
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">

@@ -11,6 +11,6 @@ class User(Base):
     hashed_password = Column(String, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
-    reports = relationship("Report", back_populates="owner")
+    #reports = relationship("Report", back_populates="owner")
 
 

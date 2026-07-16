@@ -47,3 +47,4 @@ def login(form_data: OAuth2PasswordRequestForm= Depends(), db:Session = Depends(
 
     token = auth_utils.create_access_token({"sub": str(user.id)})
     return {"access_token": token, "token_type": "bearer"}
+

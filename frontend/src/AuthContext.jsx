@@ -4,42 +4,41 @@ import api from "./api";
 const AuthContext = createContext(null);
 
 export function AuthProvider({children}) {
-    const [token, setToken] = useState(() => localStorage.getItem("akq_token"));
+    const [token, setToken] = useState(() => localStorage.getItem("afq_token"));
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const refreshUser = useCallback(async () => {
-/*        
+        
         if (!localStorage.getItem("afq_token")) {
             setUser(null);
             setLoading(false);
             return;
         }
         try {
-            const resp = await api.get("/user/me");
+            const resp = await api.get("/users/me");
             setUser(resp.data);
         }
         catch {
             logout();
         } finally {
             setLoading(false);
-        }*/
-       setLoading(false);
+        }
     }, []);
 
     useEffect(() => {
         refreshUser() }, [refreshUser]);
 
     function login(newToken) {
-        localStorage.setItem("akq_token", newToken);
-        //setToken(newToken);
-        //refreshUser();
-        setUser({ loggedIn: true});
+        localStorage.setItem("afq_token", newToken);
+        setToken(newToken);
+        refreshUser();
+        //setUser({ loggedIn: true});
     }
 
     function logout() {
-        localStorage.removeItem("akq_token");
-        //setToken(null);
+        localStorage.removeItem("afq_token");
+        setToken(null);
         setUser(null);
     }
 
