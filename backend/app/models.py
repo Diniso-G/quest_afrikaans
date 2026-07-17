@@ -13,4 +13,53 @@ class User(Base):
 
     #reports = relationship("Report", back_populates="owner")
 
+    xp = Column(Integer, default= 0)
+    level = Column(Integer, default= 1)
+    streak = Column(Integer, default= 0)
+    last_active_date = Column(DateTime, nullable= True)
+    challenges_com = Column(Integer, default= 0)
+    bugs_fixed = Column(Integer, default= 0)
+
+    #submissions = relationship("Submission", back_populates="user") 
+    achievements = relationship("UserAchievement", back_populates="user")
+
+class Lessons(Base):
+    __tablename__ = "challenges"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, nullable=False)
+    language = Column(String, nullable=False)
+    difficulty = Column(String, nullable=False)
+    description = Column(Text, nullable=False)
+    buggy_code = Column(Text, nullable=False)
+    solution_code = Column(Text, nullable=False)
+    explanation = Column(Text, nullable=False)
+    bug_types = Column(String, nullable=False)
+    hint_1 = Column(Text, nullable=True)
+    hint_2 = Column(Text, nullable=True)
+    hint_3 = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    #submissions = relationship("Submission", back_populates="user") 
+
+
+class Achievement(Base):
+    __tablename__ = "achievements"
+
+    id = Column(Integer, primary_key=True, index=True)
+    code = Column(String, unique=True, nullable=False)
+    title = Column(String, nullable=False)
+    description = Column(String, nullable=False)
+    icon = Column(String, default="CRWN")
+
+class UserAchievement(Base):
+    __tablename__ = "user_achievements"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    achievement_id = Column(Integer, ForeignKey("achievements.id"),nullable=False)
+    earned_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="achievements")
+    achievement= relationship("Achievement")
 
