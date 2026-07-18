@@ -22,9 +22,9 @@ def _award(db: Session, user:models.User, code:str, unlocked: list):
     achh = db.query(models.Achievement).filter_by(code=code).first()
     if not achh:
         return
-    already = db.query(models.UserAchievement).filter_by(user_id=user_i, achievement_id=achh.id).first()
+    already = db.query(models.UserAchievement).filter_by(user_id=user.id, achievement_id=achh.id).first()
     if not already:
-        db.add(models.UserAchievement(user_id=user_i, achievement_id=achh.id))
+        db.add(models.UserAchievement(user_id=user.id, achievement_id=achh.id))
         unlocked.append(achh.title)
 
 def update_streak(user: models.User):
@@ -32,7 +32,7 @@ def update_streak(user: models.User):
     if user.last_active_date is None:
         user.streak = 1
     else:
-        delta = now.data() - user.last_active_date.date()
+        delta = now.date() - user.last_active_date.date()
         if delta == timedelta(days=0):
             pass
         elif delta == timedelta(days=1):

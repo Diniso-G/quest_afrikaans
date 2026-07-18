@@ -20,7 +20,7 @@ class UserOut(BaseModel):
     email: str
     username: str
     xp: int
-    proficiency_level: str
+    level: int
     streak: int
     
     class Config:
@@ -48,8 +48,6 @@ class DashboardStats(BaseModel):
     xp: int
     level: int
     streak: int
-    challenges_com: int
-    bugs_fixed: int
     xp_to_next_level: int
     achievements: List[str]
 

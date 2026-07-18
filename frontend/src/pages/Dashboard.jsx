@@ -13,6 +13,8 @@ export default function Dashboard() {
 
     }, []);
 
+    const xpPcct = stats ? Math.round(((100 - stats.xp_to_next_level) / 100) * 100): 0;
+
     return (
         <div>
             <div className="hero">
@@ -35,16 +37,12 @@ export default function Dashboard() {
                         <div className="label">Total XP</div>
                     </div>
                     <div className="stat-box">
-                        <div className="num">{stats.bugs_fixed}</div>
-                        <div className="label">Bugs Fixed</div>
-                    </div>
-                    <div className="stat-box">
                         <div className="num">{stats.streak}</div>
                         <div className="label">Day Streak</div>
                     </div>
                 </div>
                 <div className="section-title">Achievements</div>
-                {stats.achievements.length === 0 ? (<p> No badges yet- solve your fest case to earn one</p>
+                {stats.achievements.length === 0 ? (<p> No badges yet- start learning to earn one</p>
                 ) : (
                     <div>
                         {stats.achievements.map((a) => (<span key={a} className="achievement-chip"> Crwn {a}</span>

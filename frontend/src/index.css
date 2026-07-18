@@ -6,7 +6,7 @@
 :root {
     --bg-base: #4e74f5;
     --bg-surface: #3953ba;
-    --slate: #000000;
+    --slate: #08222b;
     --blue: #3e7c8c;
     --blue-dark: #2563eb;
     --card: #aff671;
@@ -139,7 +139,7 @@ button {
     display: flex;
     border-bottom: 1px solid var(--border);
     top: 0;
-    background: #12141c;
+    background: #4a66d5;
     backdrop-filter: blur(8px);
 }
 

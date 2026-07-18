@@ -13,7 +13,7 @@ export default function Leaderboard() {
         <div>
             <div className="hero">
                 <h1>Leaderboard</h1>
-                <p>The sharpest bug hunter.</p>
+                <p>The sharpest learner.</p>
             </div>
             {error && <div className="error-banner">{error}</div>}
             <div className="case-card">
@@ -21,7 +21,6 @@ export default function Leaderboard() {
                     <div key={r.username} className="leaderboard-row">
                         <div className="leaderboard-rank">{i + 1}</div>
                         <div className="leaderboard-name">{r.username}</div>
-                        <div>{r.bugs_fixed} bugs</div>
                         <div className="leaderboard-xp">{r.xp} XP</div>
                     </div>
                 ))}

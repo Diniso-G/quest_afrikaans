@@ -17,31 +17,37 @@ class User(Base):
     level = Column(Integer, default= 1)
     streak = Column(Integer, default= 0)
     last_active_date = Column(DateTime, nullable= True)
-    challenges_com = Column(Integer, default= 0)
-    bugs_fixed = Column(Integer, default= 0)
 
     #submissions = relationship("Submission", back_populates="user") 
     achievements = relationship("UserAchievement", back_populates="user")
+    lesson_attempts = relationship("LessonAttempt", back_populates="user")
 
 class Lessons(Base):
-    __tablename__ = "challenges"
+    __tablename__ = "lessons"
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String, nullable=False)
-    language = Column(String, nullable=False)
-    difficulty = Column(String, nullable=False)
-    description = Column(Text, nullable=False)
-    buggy_code = Column(Text, nullable=False)
-    solution_code = Column(Text, nullable=False)
-    explanation = Column(Text, nullable=False)
-    bug_types = Column(String, nullable=False)
-    hint_1 = Column(Text, nullable=True)
-    hint_2 = Column(Text, nullable=True)
-    hint_3 = Column(Text, nullable=True)
+    topic = Column(String, nullable=False)
+    level = Column(String, nullable=False)
+    content = Column(Text, nullable=False)
+    example_sentences = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     #submissions = relationship("Submission", back_populates="user") 
 
+    attempts = relationship("LessonAttempt", back_populates="lesson")
+
+class LessonAttempt(Base):
+    __tablename__ = "lesson_attempts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)
+    score = Column(Float, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="lesson_attempts")
+    lesson = relationship("Lessons", back_populates="attempts")
 
 class Achievement(Base):
     __tablename__ = "achievements"

@@ -19,13 +19,12 @@ def get_dashboard(current_user: models.User = Depends(get_current_user), db: Ses
         .join(models.UserAchievement, models.UserAchievement.achievement_id == models.Achievement.id)
         .filter(models. UserAchievement.user_id == current_user.id).all())
     return schemas.DashboardStats(xp=current_user.xp, level=current_user.level,
-        streak=current_user.streak, challenges_com=current_user.challenges_com,
-        bugs_fixed=current_user.bugs_fixed, xp_to_next_level=xp_to_next, achievements=[a[0] for a in achievements],)
+        streak=current_user.streak, xp_to_next_level=xp_to_next, achievements=[a[0] for a in achievements],)
 
 
 @router.get("/leaderboard")
 def leaderboard(db: Session = Depends(get_db), limit: int = 5):
     top = (db.query(models.User).order_by(models.User.xp.desc()).limit(limit).all())
-    return [ {"username": u.username, "xp": u.xp, "level": u.level, "bugs_fixed": u.bugs_fixed}
+    return [ {"username": u.username, "xp": u.xp, "level": u.level}
         for u in top    
     ]
