@@ -49,6 +49,19 @@ class LessonAttempt(Base):
     user = relationship("User", back_populates="lesson_attempts")
     lesson = relationship("Lessons", back_populates="attempts")
 
+class PronounciationAttempt(Base):
+    __tablename__ = "pronounciation_attempts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    target_phrase = Column(String, nullable=False)
+    transcribed_text = Column(String, nullable=True) 
+    pronounciation_score = Column(Float, nullable=True)
+    feedback = Column(Text, nullable=True)     
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="pronounciation_attempts")
+
 class Achievement(Base):
     __tablename__ = "achievements"
 

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base, SessionLocal
 from app import models
 from app.gamification import ensure_achievement_defs
-from app.routers import auth, users, lessons
+from app.routers import auth, users, lessons, speech
 
 Base.metadata.create_all(bind=engine)
 
@@ -16,6 +16,7 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"],allow_credentials=True,al
 app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(lessons.router)
+app.include_router(speech.router)
 
 def _seed_sample_lessons():
     db = SessionLocal()

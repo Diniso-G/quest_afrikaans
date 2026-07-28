@@ -43,6 +43,13 @@ class LessonAttemptCreate(BaseModel):
     lesson_id: int
     score: float
 
+class PronounciationRequest(BaseModel):
+    target_phrase: str
+    transcribed_text: str
+
+class PronounciationResult(BaseModel):
+    pronounciation_score: float
+    feedback: str
 
 class DashboardStats(BaseModel):
     xp: int
