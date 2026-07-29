@@ -9,7 +9,7 @@ const DIFFICULTIES = ["Beginner", "Intermediate", "Advanced"];
 export default function Lessons(){
     const [lessons, setLessons] = useState([]);
     const [error, setError] = useState("");
-    const [scoring, setScorinh] = useState(null);
+    const [scoring, setScoring] = useState(null);
     const [target, setTarget] = useState("");
     const [generating, setGenerating] = useState(false);
     const [transcript, setTranscript] = useState("");
@@ -23,9 +23,9 @@ export default function Lessons(){
     useEffect(() => { load()}, []);
 
     async function handleScorePronounciation(e) {
-        e.preventDefualt()
+        e.preventDefault()
         try {
-            const resp = await api.post("/speech/score", { target_phrase, transcribed_text: transcript})
+            const resp = await api.post("/speech/score", { target_phrase: target, transcribed_text: transcript})
             setPronResult(resp.data)
         }
         catch {
@@ -40,18 +40,6 @@ export default function Lessons(){
                 <p>This is the basis for Quest Afrikaans. Lesson browseing and adaptive proficiency scoring dashboard.</p>
             </div>
             {error && <div className="error-banner">{error}</div>}
-            
-            {lessons.map((l) => (
-                <div key={l.id} className="card">
-                    <div>{l.level} - {l.topic}</div>
-                    <h3>{l.title}</h3>
-                    <p>{l.content}</p>
-
-                    {l.example_sentences && (
-                        <pre>{l.example_sentences}</pre>
-                    )}
-                </div>
-            ))}
 
             <div className="card">
                 <h3>Try pronounciation scoring</h3>
