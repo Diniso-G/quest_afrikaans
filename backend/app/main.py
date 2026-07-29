@@ -35,7 +35,7 @@ def _seed_sample_lessons():
 
 
 @app.on_event("startup")
-def seed_achievements():
+def on_startup():
     _seed_sample_lessons()
 
     

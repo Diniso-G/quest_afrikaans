@@ -21,6 +21,7 @@ class User(Base):
     #submissions = relationship("Submission", back_populates="user") 
     achievements = relationship("UserAchievement", back_populates="user")
     lesson_attempts = relationship("LessonAttempt", back_populates="user")
+    pronounciation_attempts = relationship("PronounciationAttempt", back_populates="user")
 
 class Lessons(Base):
     __tablename__ = "lessons"
