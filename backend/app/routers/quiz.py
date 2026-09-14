@@ -12,5 +12,4 @@ from app.ai.quiz_generator import generate_question, VALID_DIFFICULTIES, VALID_T
 
 router = APIRouter(prefix="/quiz", tag=["quiz"])
 
-@router.post("/generate", response_model=schemas.QuestionOut)
-
+#@router.post("/generate", response_model=schemas.QuestionOut)
