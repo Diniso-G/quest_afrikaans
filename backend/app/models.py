@@ -22,6 +22,7 @@ class User(Base):
     achievements = relationship("UserAchievement", back_populates="user")
     lesson_attempts = relationship("LessonAttempt", back_populates="user")
     pronounciation_attempts = relationship("PronounciationAttempt", back_populates="user")
+    quiz_attempts = relationship("QuizAttempt", back_populates="user")
 
 class Lessons(Base):
     __tablename__ = "lessons"
@@ -82,4 +83,29 @@ class UserAchievement(Base):
 
     user = relationship("User", back_populates="achievements")
     achievement= relationship("Achievement")
+class Question(Base):
+    __tablename__ = "questions" 
 
+    id = Column(Integer, primary_key=True, index=True)
+    question_type = Column(String, nullable=False)
+    difficulty = Column(String, nullable=False)
+    prompt_text = Column(Text, nullable=False)
+    options = Column(Text, nullable=False)
+    correct_option = Column(String, nullable=False)
+    explanation = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    attempts = relationship("QuizAttempt", back_populates="question")
+    
+class QuizAttempt(Base):
+    __tablename__ = "quiz_attempts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    question_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    selected_option = Column(String, nullable=False) 
+    is_correct = Column(Integer, default=0)    
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="quiz_attempts")
+    question = relationship("Question", back_populates="attempts")
