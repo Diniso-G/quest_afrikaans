@@ -58,4 +58,28 @@ class DashboardStats(BaseModel):
     xp_to_next_level: int
     achievements: List[str]
 
+class QuizGenerateRequest(BaseModel):
+    difficulty: str
+    question_type: Optional[str] = None
+
+class QuestionOut(BaseModel):
+    id: int
+    question_type: str
+    difficulty: str
+    prompt_text: str
+    options: List[str]
+
+    class Config:
+        from_attributes = True
+
+class QuizAnswerRequest(BaseModel):
+    question_id: int
+    selected_option: str
+
+class QuizAnswerResult(BaseModel):
+    is_correct: bool
+    correct_option: str
+    explanation: Optional[str]
+    xp_awarded: int
+    total_xp: int
 

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base, SessionLocal
 from app import models
 from app.gamification import ensure_achievement_defs
-from app.routers import auth, users, lessons, speech
+from app.routers import auth, users, lessons, speech, quiz
 
 Base.metadata.create_all(bind=engine)
 
@@ -17,11 +17,12 @@ app.include_router(auth.router)
 app.include_router(users.router)
 app.include_router(lessons.router)
 app.include_router(speech.router)
+app.include_router(quiz.router)
 
 def _seed_sample_lessons():
     db = SessionLocal()
     try:
-        if db.query(models.Lessons).count()== 0:
+        if db.query(models.Lessons).count() == 0:
             db.add_all([models.Lessons(title="Greetings", topic="greetings", level="Beginner", 
                 content="Learn the most common Afrikaans greetings and how to introduce yourself.",
                 example_sentences="Hallo, hoe gaan dit? | Hello, how are you? \nGoeie môre | Good morning\nAangename kennis | Nice to meet you",),

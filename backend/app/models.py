@@ -46,6 +46,7 @@ class LessonAttempt(Base):
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     lesson_id = Column(Integer, ForeignKey("lessons.id"), nullable=False)
     score = Column(Float, nullable=True)
+    completed = Column(Integer, default=0)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="lesson_attempts")
@@ -83,6 +84,7 @@ class UserAchievement(Base):
 
     user = relationship("User", back_populates="achievements")
     achievement= relationship("Achievement")
+    
 class Question(Base):
     __tablename__ = "questions" 
 
@@ -102,7 +104,7 @@ class QuizAttempt(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    question_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    question_id = Column(Integer, ForeignKey("questions.id"), nullable=False)
     selected_option = Column(String, nullable=False) 
     is_correct = Column(Integer, default=0)    
     created_at = Column(DateTime, default=datetime.utcnow)

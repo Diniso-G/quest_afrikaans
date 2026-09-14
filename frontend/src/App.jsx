@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Registration from './pages/Registration';
 import Lessons from './pages/Lessons';
 import Leaderboard from './pages/Leaderboard';
+import Quiz from './pages/Quiz';
 
 function TopBar() {
     const {user, logout} = useAuth();
@@ -22,6 +23,7 @@ function TopBar() {
                     <div className="nav-links">
                         <Link to="/dashboard" className={isActive("/dashboard") ? "active" : ""}>Dasboard</Link> 
                         <Link to="/lessons" className={isActive("/lessons") ? "active" : ""}>Lessons</Link> 
+                        <Link to="/quiz" className={isActive("/quiz") ? "active" : ""}>Quiz</Link>
                         <Link to="/leaderboard" className={isActive("/leaderboard") ? "active" : ""}>Leaderboard</Link> 
                     </div>
                     <div className="stat-pill">
@@ -59,6 +61,7 @@ function AppRoutes() {
                     <Route path='/login' element={<Login/>}/>
                     <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
                     <Route path="/lessons" element={<PrivateRoute><Lessons /></PrivateRoute>} />
+                    <Route path="/quiz" element={<PrivateRoute><Quiz /></PrivateRoute>} />
                     <Route path="/leaderboard" element={<PrivateRoute><Leaderboard /></PrivateRoute>} />
                 </Routes>
             </main>
