@@ -23,6 +23,7 @@ class User(Base):
     lesson_attempts = relationship("LessonAttempt", back_populates="user")
     pronounciation_attempts = relationship("PronounciationAttempt", back_populates="user")
     quiz_attempts = relationship("QuizAttempt", back_populates="user")
+    vocab_attempts = relationship("VocabAttempt", back_populates="user")
 
 class Lessons(Base):
     __tablename__ = "lessons"
@@ -111,3 +112,30 @@ class QuizAttempt(Base):
 
     user = relationship("User", back_populates="quiz_attempts")
     question = relationship("Question", back_populates="attempts")
+
+class VocabWord(Base):
+    __tablename__ = "vocab_words"
+
+    id = Column(Integer, primary_key=True, index=True)
+    english_word = Column(String, nullable=False)
+    afrikaans_word = Column(String, nullable=False) 
+    difficulty = Column(String, nullable=False)    
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    attempts = relationship("VocabAttempt", back_populates="word")
+
+class VocabAttempt(Base):
+    __tablename__ = "vocab_attempts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    word_id = Column(Integer, ForeignKey("vocab_words.id"), nullable=False)
+    direction = Column(String, nullable=False) 
+    mode = Column(String, nullable=False)
+    submitted_answer = Column(String, nullable=False)
+    is_correct = Column(Integer, default=0)  
+    similarity = Column(Float, nullable=True)  
+    created_at = Column(DateTime, default=datetime.utcnow)
+
+    user = relationship("User", back_populates="vocab_attempts")
+    word = relationship("VocabWord", back_populates="attempts")

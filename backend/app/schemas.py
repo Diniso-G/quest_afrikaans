@@ -83,3 +83,28 @@ class QuizAnswerResult(BaseModel):
     xp_awarded: int
     total_xp: int
 
+class VocabPracticeRequest(BaseModel):
+    difficulty: str
+    direction: Optional[str] = None
+    mode: Optional[str] = None
+
+class VocabPromptOut(BaseModel):
+    word_id: int
+    direction: str
+    mode: str
+    difficulty: str
+    prompt_word: str
+    options: Optional[List[str]] = None
+
+class VocabAnswerRequest(BaseModel):
+    word_id: int
+    direction: str
+    mode: str
+    answer: str
+
+class VocabAnswerResult(BaseModel):
+    is_correct: bool
+    correct_answer: str
+    similarity: Optional[float] = None
+    xp_awarded: int
+    total_xp: int

@@ -43,7 +43,7 @@ def generate_practice(payload: schemas.VocabPracticeRequest, db: Session = Depen
     )
 
 @router.post("/practice/answer", response_model=schemas.VocabAnswerResult)
-def answer(payload: schemas.VocabAnswerRequest, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user),):
+def answer_practice(payload: schemas.VocabAnswerRequest, db: Session = Depends(get_db), current_user: models.User = Depends(get_current_user),):
     if payload.direction not in ["en_to_af", "af_to_en"]:
         raise HTTPException(400, "direction must be 'en_to_af' or 'af_to_en'")
     if payload.mode not in VALID_MODE_INPUTS:
