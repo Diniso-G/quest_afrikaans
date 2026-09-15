@@ -51,6 +51,9 @@ class PronounciationResult(BaseModel):
     pronounciation_score: float
     feedback: str
 
+class TranscriptionResult(BaseModel):
+    transcribed_text: str
+
 class DashboardStats(BaseModel):
     xp: int
     level: int

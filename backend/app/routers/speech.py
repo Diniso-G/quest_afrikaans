@@ -1,5 +1,8 @@
 import difflib
-from fastapi import APIRouter, Depends 
+import os
+import tempfile
+
+from fastapi import APIRouter, Depends, UploadFile, File, HTTPException 
 from sqlalchemy.orm import Session
 
 from app.database import get_db
@@ -7,6 +10,7 @@ from app.auth import get_current_user
 from app import models, schemas
 from app.gamification import XP_PER_LEVEL
 from app.ai.client import ai_available, chat
+from app.ai.asr import asr_available, transcribe_audio_file
 import json
 
 router = APIRouter(prefix="/speech", tags=["speech"])
@@ -19,10 +23,13 @@ and give one short, encouraging piece of feedback IN ENGLISH ONLY. Respond with 
 
 def score_pronounciation(target: str, transcribed: str) -> tuple[float, str]:
     if ai_available:
-        raw = chat(SYSTEM_PROMPT, f"Target: {target}\nTranscript: {transcribed}", json_mode=True)
-        data = json.loads(raw)
-        return float(data.get("score", 0)), data.get("feedback", "")
-
+        try:
+            raw = chat(SYSTEM_PROMPT, f"Target: {target}\nTranscript: {transcribed}", json_mode=True)
+            data = json.loads(raw)
+            return float(data.get("score", 0)), data.get("feedback", "")
+        except Exception:
+            pass
+            
     ratio = difflib.SequenceMatcher(None, target.lower().strip(), transcribed.lower().strip()).ratio()
     score = round(ratio * 100, 1)
     if score >= 85:
@@ -43,4 +50,37 @@ def score_attempt(payload: schemas.PronounciationRequest, db: Session = Depends(
     db.commit()
 
     return schemas.PronounciationResult(pronounciation_score=score, feedback=feedback)
+
+MAX_AUDIO_BYTES = 10 * 1024 * 1024
+
+@router.post("/transcribe", response_model=schemas.TranscriptionResult)
+async def transcribe(audio: UploadFile = File(...), current_user: models.User = Depends(get_current_user),):
+    if not asr_available:
+        raise HTTPException(503, "Speech-to-text isn't set up on this server. Install 'google-genai' "
+            "(and the ffmpeg system binary) to enable audio transcription.",)
+
+    contents = await audio.read()
+    if len(contents) > MAX_AUDIO_BYTES:
+        raise HTTPException(400, "Audio file is too large (max 10MB).")
+    if not contents:
+        raise HTTPException(400, "Uploaded audio file is empty.")
+
+    suffix = os.path.splitext(audio.filename or "")[1] or ".wav"
+    tmp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+            tmp.write(contents)
+            tmp_path = tmp.name
+
+        text = transcribe_audio_file(tmp_path)
+
+    except RuntimeError as e:
+        raise HTTPException(503, str(e))
+    except Exception:
+        raise HTTPException(400, "Couldn't transcribe that audio file - is it a valid audio format?")
+    finally:
+        if tmp_path and os.path.exists(tmp_path):
+            os.remove(tmp_path)
+
+    return schemas.TranscriptionResult(transcribed_text=text)
 
