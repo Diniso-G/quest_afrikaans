@@ -30,43 +30,55 @@ OFFLINE_BANK = {
     "Beginner": {
         "scenario": [
             {"prompt_text": "What colour is grass?", "options": ["groen", "rooi", "blou", "geel"],
-             "correct_option": "groen", "explanation": "'Groen' means 'green' in Afrikaans"},
+             "correct_option": "groen", "explanation": "'Groen' means 'green' in Afrikaans."},
+            {"prompt_text": "Which word means 'good morning?", "options": ["Goeie môre", "Totsiens", "Asseblief", "Dankie"],
+             "correct_option": "Goeie môre", "explanation": "'Goeie môre' is the Afrikaans greeting for 'good morning'."},
         ],
         "en_to_af": [
             {"prompt_text": "dog", "options": ["kat", "hond", "voël", "vis"],
             "correct_option": "hond", "explanation": "'Hond' is Afrikaans for 'dog'."},
+            {"prompt_text": "water", "options": ["brood", "melk", "water", "vleis"],
+             "correct_option": "water", "explanation": "'Water' is spelled the same in Afrikaans and English."},
         ],
         "af_to_en": [
             {"prompt_text": "huis", "options": ["car", "tree", "house", "book"],
             "correct_option": "house", "explanation": "'Huis' is Afrikaans for 'house'."},
+            {"prompt_text": "kat", "options": ["dog", "bird", "fish", "cat"],
+             "correct_option": "cat", "explanation": "'Kat' means 'cat'."},
         ],
     },
     "Intermediate": {
         "scenario": [
-            {"prompt_text": "What colour is grass?", "options": ["groen", "rooi", "blou", "geel"],
-             "correct_option": "groen", "explanation": "'Groen' means 'green' in Afrikaans"},
+            {"prompt_text": "What do you say to thank someone?", "options": ["asseblief", "dankie", "totsiens", "jammer"],
+             "correct_option": "dankie", "explanation": "'Dankie' means 'thank you' the others mean please, goodbye and sorry."},
+            {"prompt_text": "Which word means 'please'?", "options": ["asseblief", "dankie", "welkom", "jammer"],
+             "correct_option": "asseblief", "explanation": "'Asseblief' means 'please' in Afrikaans."},
         ],
         "en_to_af": [
-            {"prompt_text": "dog", "options": ["kat", "hond", "voël", "vis"],
-            "correct_option": "hond", "explanation": "'Hond' is Afrikaans for 'dog'."},
+            {"prompt_text": "to eat", "options": ["drink", "loop", "eet", "slaap"],
+            "correct_option": "eet", "explanation": "'Eat' means 'to eat'; the distractors mean drink, walk and sleep."},
+            {"prompt_text": "tired", "options": ["bly", "kwaad", "koud", "moeg"],
+             "correct_option": "moeg", "explanation": "'Moeg' means 'tired'."},
         ],
         "af_to_en": [
-            {"prompt_text": "huis", "options": ["car", "tree", "house", "book"],
-            "correct_option": "house", "explanation": "'Huis' is Afrikaans for 'house'."},
+            {"prompt_text": "warm", "options": ["cold", "wet", "warm", "hard"],
+            "correct_option": "moeg", "explanation": "'Moeg' means 'warm' in English too."},
+            {"prompt_text": "vinnig", "options": ["fast", "slow", "heavy", "quiet"],
+             "correct_option": "fast", "explanation": "'Vinnig' means 'fast'."},
         ],
     },
     "Advanced": {
         "scenario": [
-            {"prompt_text": "What colour is grass?", "options": ["groen", "rooi", "blou", "geel"],
-             "correct_option": "groen", "explanation": "'Groen' means 'green' in Afrikaans"},
+            {"prompt_text": "Which idiom means 'to give up'?", "options": ["trek ann een kant", "slaan die spyker op die kop", "gooi die tou op", "loop met die hoenders"],
+             "correct_option": "gooi die tou op", "explanation": "'Gooi die tou op' literally means 'throw the rope up' in Afrikaans and idiomatically means 'to give up'."},
         ],
         "en_to_af": [
-            {"prompt_text": "dog", "options": ["kat", "hond", "voël", "vis"],
-            "correct_option": "hond", "explanation": "'Hond' is Afrikaans for 'dog'."},
+            {"prompt_text": "It's raining cats and dogs.", "options": ["Dit reën katte en honde.", "Dit is baie warm buite.", "Die son skyn helder.", "Dit reën ou vroue met knopkieries."],
+            "correct_option": "Dit reën ou vroue met knopkieries.", "explanation": "Afrikaans has its own idiom for heavy rain rather than a literal translation."},
         ],
         "af_to_en": [
-            {"prompt_text": "huis", "options": ["car", "tree", "house", "book"],
-            "correct_option": "house", "explanation": "'Huis' is Afrikaans for 'house'."},
+            {"prompt_text": "Sy is op haar perdjie", "options": ["She is being stubborn/arrogant.", "She is riding a horse.", "She is very happy.", "She is sleeping."],
+            "correct_option": "She is being stubborn/arrogant.", "explanation": "This idiom literally means 'she is on her little horse' but is used to mean she's acting high and mighty."},
         ],
     },
 }
