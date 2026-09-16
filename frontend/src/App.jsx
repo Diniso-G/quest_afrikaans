@@ -7,6 +7,7 @@ import Lessons from './pages/Lessons';
 import Leaderboard from './pages/Leaderboard';
 import Quiz from './pages/Quiz';
 import WordMatch from './pages/WordMatch';
+import Pronounciation from './pages/Pronounciation';
 
 function TopBar() {
     const {user, logout} = useAuth();
@@ -26,6 +27,7 @@ function TopBar() {
                         <Link to="/lessons" className={isActive("/lessons") ? "active" : ""}>Lessons</Link> 
                         <Link to="/quiz" className={isActive("/quiz") ? "active" : ""}>Quiz</Link>
                         <Link to="/word-match" className={isActive("/word-match") ? "active" : ""}>Word Match</Link>
+                        <Link to="/pronounciation" className={isActive("/pronounciation") ? "active" : ""}>Pronounciation</Link>
                         <Link to="/leaderboard" className={isActive("/leaderboard") ? "active" : ""}>Leaderboard</Link> 
                     </div>
                     <div className="stat-pill">
@@ -65,6 +67,7 @@ function AppRoutes() {
                     <Route path="/lessons" element={<PrivateRoute><Lessons /></PrivateRoute>} />
                     <Route path="/quiz" element={<PrivateRoute><Quiz /></PrivateRoute>} />
                     <Route path="/word-match" element={<PrivateRoute><WordMatch /></PrivateRoute>} />
+                    <Route path="/pronounciation" element={<PrivateRoute><Pronounciation /></PrivateRoute>} />
                     <Route path="/leaderboard" element={<PrivateRoute><Leaderboard /></PrivateRoute>} />
                 </Routes>
             </main>
