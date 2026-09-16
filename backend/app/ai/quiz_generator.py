@@ -62,7 +62,7 @@ OFFLINE_BANK = {
         ],
         "af_to_en": [
             {"prompt_text": "warm", "options": ["cold", "wet", "warm", "hard"],
-            "correct_option": "moeg", "explanation": "'Moeg' means 'warm' in English too."},
+            "correct_option": "warm", "explanation": "'Moeg' means 'warm' in English too."},
             {"prompt_text": "vinnig", "options": ["fast", "slow", "heavy", "quiet"],
              "correct_option": "fast", "explanation": "'Vinnig' means 'fast'."},
         ],

@@ -50,7 +50,7 @@ export default function Lessons(){
         setError("");
     }
 
-    async function recordLessonAttempt(lessonId, score) {
+    async function recordLessonAttempt(lesson_id, score) {
         try {
             const resp = await api.post("/lessons/attempt", {lessonId: lessonId, score});
             if (score >= COMPLETE_THRESHOLD) {
