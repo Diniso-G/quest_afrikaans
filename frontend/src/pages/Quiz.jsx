@@ -105,7 +105,6 @@ export default function Quiz() {
                 {loading || !question ? ( <p>Loading question...</p>
                 ) : (
                     <>
-                        <div className="case-id">{question.question_type.toUpperCase().replace(/_/g, " ")}</div>
                         <h3 className="case-title">{question.prompt_text}</h3>
 
                         <div className="quiz-options">

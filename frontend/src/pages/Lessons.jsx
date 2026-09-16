@@ -130,10 +130,11 @@ export default function Lessons(){
             </div>
             {error && <div className="error-banner">{error}</div>}
 
-            <div className="quiz-options" style={{flexDirection: "row", flexWrap: "wrap", marginBottom: 16}}>
+            <div className="chip-bar">
                 {LEVELS.map((level) => (
                     <button
                     key={level} className={"quiz-option" + (levelFilter === level ? " selected" : "")}
+                    style={{margin: 6}}
                     onClick={() => setLevelFilter(level)}>
                         {level}
                     </button>
@@ -212,7 +213,7 @@ export default function Lessons(){
                 {lessons.map((c) => (
                     <div key={c.id} className="card-case">
                         <div className="case-id">
-                            CLASS-{String(c.id).padStart(4, "0")} . {c.level} . {c.topic}
+                            {c.level} - {c.topic}
                         </div>
                         <h3 className="case-title">{c.title}</h3>
                         <p>{c.content}</p>

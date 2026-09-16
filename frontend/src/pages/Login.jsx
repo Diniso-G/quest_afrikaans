@@ -33,13 +33,13 @@ export default function Login() {
 
     return (
         <div id="authScreen">
-            <div class="auth-wrap">
-                <div class="auth-brand">
+            <div className="auth-wrap">
+                <div className="auth-brand">
                     <h1>QUEST_AFRIKAANS</h1>
                     <p>Become fluent in afrikaanns/Word vlot in Afrikaans</p>
                 </div>
                 <div className="auth-card">
-                    <div id="authMessage" class="auth-error"></div>
+                    <div id="authMessage" className="auth-error"></div>
                     <div id="loginForm">
                         <h2> Welkom terug</h2>
                         <p> Sign in to continue learning Afrikaans </p>

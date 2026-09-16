@@ -39,7 +39,7 @@ export default function Registration() {
     };
 
     return (
-        <div id ="authScreen">
+        <div id="authScreen">
             <div className="auth-wrap">
                 <div className="auth-brand">
                     <h1>QUEST_AFRIKAANS</h1>

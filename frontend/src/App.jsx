@@ -23,7 +23,7 @@ function TopBar() {
             {user && (
                 <>
                     <div className="nav-links">
-                        <Link to="/dashboard" className={isActive("/dashboard") ? "active" : ""}>Dasboard</Link> 
+                        <Link to="/dashboard" className={isActive("/dashboard") ? "active" : ""}>Dashboard</Link> 
                         <Link to="/lessons" className={isActive("/lessons") ? "active" : ""}>Lessons</Link> 
                         <Link to="/quiz" className={isActive("/quiz") ? "active" : ""}>Quiz</Link>
                         <Link to="/word-match" className={isActive("/word-match") ? "active" : ""}>Word Match</Link>

@@ -177,7 +177,7 @@ export default function WordMath() {
                 ) : (
                     <>
                     <div className="case-id">
-                        {word.direction === "en_to_af" ? "ENGLISH -> AFRIKAANS" : "AFRIKAANS -> ENGLISH"}
+                        {word.direction === "en_to_af" ? "English -> Afrikaans" : "Afrikaans -> English"}
                     </div>
                     <h3 className="case-title">{word.prompt_word}</h3>
 
