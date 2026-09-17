@@ -52,7 +52,7 @@ export default function Lessons(){
 
     async function recordLessonAttempt(lesson_id, score) {
         try {
-            const resp = await api.post("/lessons/attempt", {lessonId: lesson_id, score});
+            const resp = await api.post("/lessons/attempt", {lesson_id: lesson_id, score});
             if (score >= COMPLETE_THRESHOLD) {
                 setCompletionMessage(`Lesson marked complete! Total XP: ${resp.data.xp}`);
             }

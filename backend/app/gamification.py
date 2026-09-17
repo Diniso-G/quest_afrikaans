@@ -88,12 +88,13 @@ def apply_lesson_result(
         user.xp += xp_awarded
         user.level = (user.xp // XP_PER_LEVEL) + 1
         update_streak(user)
+        
         _award(db, user, "FIRST_LESSON", unlocked,)
 
         check_common_achievements(
             db, user, unlocked,
         )
-    db.commit()
+    #db.commit()
     return xp_awarded, unlocked
 
 def apply_quiz_result(

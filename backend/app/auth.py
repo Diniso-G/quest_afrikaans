@@ -14,7 +14,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy.util import deprecated
 
 from app.config import settings
-from app.database import get_db, SessionLocal
+from app.database import get_db
 
 '''
 #Tried different version but still keep for reference
@@ -47,7 +47,7 @@ def decode_access_token(token:str) -> dict | None:
     except JWTError:
         return None
 
-def get_current_user(token:str = Depends(oauth_scheme)):
+def get_current_user(token:str = Depends(oauth_scheme), db: Session = Depends(get_db),):
     """Dependency to protect routes. Raises 401 if the token is missing or invalid."""
     from app.models import User #Avoids Circular imports //RESEARCH MORE ON TOPIC
     payload = decode_access_token(token)
@@ -55,11 +55,17 @@ def get_current_user(token:str = Depends(oauth_scheme)):
         raise HTTPException(status_code=401, detail="Invalid or expeired token")
 
     user_id = payload.get("sub")
-    db: Session = SessionLocal()
+
+    if user_id is None:
+        raise HTTPException(status_code=401, detail="Invalid Token")
+
     try:
-        user = db.query(User).filter(User.id == int(user_id)).first()
-        if user is None:
-            raise HTTPException(status_code=401, detail="User not found")
-        return user
-    finally:
-        db.close()
+        user_id = int(user_id)
+    except (TypeError, ValueError):
+        raise HTTPException(status_code=401, detail="Invalid token")
+    
+    user = db.query(User).filter(User.id == user_id).first()
+    if user is None:
+        raise HTTPException(status_code=401, detail="User not found")
+    return user
+

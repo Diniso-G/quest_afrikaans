@@ -35,12 +35,24 @@ def record_attempt(payload: schemas.LessonAttemptCreate, db: Session = Depends(g
         score=payload.score, completed=0,)
     
     db.add(attempt)
+    db.flush()
 
-    xp_awarded, unlocked = gamification.apply_lesson_result(db, current_user, lesson, payload.score)
+    xp_awarded, unlocked = gamification.apply_lesson_result(db, current_user, lesson, payload.score,)
+
+    #print("XP AWARDED: ", xp_awarded)
+    #print("USER XP AFTER GAMIFICATION: ", current_user.xp)
+
+
     attempt.completed = 1 if xp_awarded > 0 else 0
 
     #if attempt.completed:
     #    current_user.xp += int(payload.score)
 
     db.commit()
-    return {"recorded": True, "xp": current_user.xp, "level": current_user.level, "unlocked_achievements": unlocked}
+    #db.refresh(current_user)
+
+    #print("XP AFTER COMMIT: ", current_user.xp)
+    #print("STREAK AFTER COMMIT: ", current_user.streak)
+
+    return {"recorded": True, "xp": current_user.xp, "level": current_user.level, "streak": current_user.streak, "unlocked_achievements": unlocked,}
+

@@ -4,9 +4,14 @@ from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from datetime import datetime
 from app.config import settings
 
+import os
+
 #DATABASE_URL = "sqlite:///./dashboard.db"
 connect_args = {"check_same_thread": False} if settings.database_url.startswith("sqlite") else {}
 engine = create_engine(settings.database_url, connect_args=connect_args)
+
+print("DATABASE URL:", settings.database_url)
+print("DATABASE PATH:", os.path.abspath(engine.url.database))
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind = engine)
 Base = declarative_base()
 
