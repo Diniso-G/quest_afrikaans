@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.auth import get_current_user
-from app import models, schemas
+from app import models, schemas, gamification
 
 router = APIRouter(prefix="/lessons", tags=["lessons"])
 
@@ -32,12 +32,15 @@ def record_attempt(payload: schemas.LessonAttemptCreate, db: Session = Depends(g
         raise HTTPException(404, "Lesson not found")
     
     attempt = models.LessonAttempt(user_id=current_user.id, lesson_id=payload.lesson_id,
-        score=payload.score, completed=1 if payload.score >= 70 else 0,)
+        score=payload.score, completed=0,)
     
     db.add(attempt)
 
-    if attempt.completed:
-        current_user.xp += int(payload.score)
+    xp_awarded, unlocked = gamification.apply_lesson_result(db, current_user, lesson, payload.score)
+    attempt.completed = 1 if xp_awarded > 0 else 0
+
+    #if attempt.completed:
+    #    current_user.xp += int(payload.score)
 
     db.commit()
-    return {"recorded": True, "xp": current_user.xp}
+    return {"recorded": True, "xp": current_user.xp, "level": current_user.level, "unlocked_achievements": unlocked}

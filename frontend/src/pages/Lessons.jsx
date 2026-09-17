@@ -52,7 +52,7 @@ export default function Lessons(){
 
     async function recordLessonAttempt(lesson_id, score) {
         try {
-            const resp = await api.post("/lessons/attempt", {lessonId: lessonId, score});
+            const resp = await api.post("/lessons/attempt", {lessonId: lesson_id, score});
             if (score >= COMPLETE_THRESHOLD) {
                 setCompletionMessage(`Lesson marked complete! Total XP: ${resp.data.xp}`);
             }
@@ -82,7 +82,7 @@ export default function Lessons(){
     async function startRecording() {
         setError("");
         try {
-            const stream = await navigator.mediaDevices.getUserModel({ audio: true});
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true});
             const recorder = new MediaRecorder(stream);
             chunksRef.current = [];
             recorder.ondataavailable = (e) => {

@@ -88,7 +88,7 @@ export default function WordMath() {
     }
 
     function optionClass(option) {
-        if (!result) return "quiz-option" + (selected === option ? "selected" : "");
+        if (!result) return "quiz-option" + (selected === option ? " selected" : "");
         if (option === result.correct_option) return "quiz-option correct";
         if (option === selected) return "quiz-option incorrect";
         return "quiz-option disabled";
@@ -130,7 +130,7 @@ export default function WordMath() {
                             <div className="quiz-options">
                                 {DIRECTIONS.map((d) => (
                                     <button 
-                                        key={d.value} 
+                                        key={d.label} 
                                         className={"quiz-option" + (direction === d.value ? " selected" : "")}
                                         onClick={() => setDirection(d.value)}
                                         > 
@@ -145,7 +145,7 @@ export default function WordMath() {
                             <div className="quiz-options">
                                 {MODES.map((m) => (
                                     <button 
-                                        key={m.value} 
+                                        key={m.label} 
                                         className={"quiz-option" + (mode === m.value ? " selected" : "")}
                                         onClick={() => setMode(m.value)}
                                         > 
@@ -167,7 +167,7 @@ export default function WordMath() {
         <div>
             <div className="hero">
                 <h1>Word Match- {difficulty}</h1>
-                <p>Score: {score.corrrect} / {score.total} correct</p>
+                <p>Score: {score.correct} / {score.total} correct</p>
             </div>
 
             {error && <div className="error-banner">{error}</div>}

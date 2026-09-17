@@ -53,7 +53,7 @@ export default function Quiz() {
     }
 
     function optionClass(option) {
-        if (!result) return "quiz-option" + (selected === option ? "selected" : "");
+        if (!result) return "quiz-option" + (selected === option ? " selected" : "");
         if (option === result.correct_option) return "quiz-option correct";
         if (option === selected) return "quiz-option incorrect";
         return "quiz-option disabled";
@@ -114,7 +114,7 @@ export default function Quiz() {
                         </div>
 
                         {result && (
-                            <div className={"quiz-fedback " + (result.is_correct ? "correct" : "incorrect")}>
+                            <div className={"quiz-feedback " + (result.is_correct ? "correct" : "incorrect")}>
                                 <b>{result.is_correct ? `Correct! +${result.xp_awarded} XP` : "Not quite."}</b>
                                 {!result.is_correct && (
                                     <p>The right answer was <b>{result.correct_option}</b>.</p>

@@ -21,7 +21,7 @@ export default function Pronounciation() {
 
     async function handleScore(e) {
         e?.preventDefault()
-        if (!activePractice || !transcript) return;
+        if (!targetPhrase || !transcript) return;
         setScoring(true);
         setError("");
         try {
@@ -38,7 +38,7 @@ export default function Pronounciation() {
         setError("");
         setPronResult(null);
         try {
-            const stream = await navigator.mediaDevices.getUserModel({ audio: true});
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true});
             const recorder = new MediaRecorder(stream);
             chunksRef.current = [];
             recorder.ondataavailable = (e) => {
@@ -94,7 +94,7 @@ export default function Pronounciation() {
                 <div className="quiz-options" style={{flexDirection: "row", flexWrap: "wrap", marginBottom: 16}}>
                     {SUGGESTED_PHRASES.map((phrase) => (
                         <button key={phrase} className={"quiz-option" + (targetPhrase === phrase ? " selected" : "")}
-                        onClick={() => pickSuggestion(phrase)}>
+                        onClick={() => { setTargetPhrase(phrase); setTranscript(""); setPronResult(null);}}>
                             {phrase}
                         </button>
                     ))}

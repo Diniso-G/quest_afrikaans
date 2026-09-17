@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.auth import get_current_user
-from app import models, schemas
+from app import models, schemas, gamification
 from app.gamification import XP_BY_DIFFICULTY
 from app.ai.quiz_generator import generate_question, VALID_DIFFICULTIES, VALID_TYPES
 
@@ -46,15 +46,17 @@ def answer(payload: schemas.QuizAnswerRequest, db: Session = Depends(get_db), cu
         selected_option=payload.selected_option, is_correct=1 if is_correct else 0,)
 
     db.add(attemp)
+    xp_awarded, unlocked = gamification.apply_quiz_result(db, current_user, question.difficulty, is_correct)
 
+    db.commit()
+    
+    return schemas.QuizAnswerResult(
+        is_correct=is_correct, correct_option=question.correct_option,            explanation=question.explanation, xp_awarded=xp_awarded, total_xp=current_user.xp,
+    )
+
+'''
     xp_awarded = 0
     if is_correct:
         xp_awarded = XP_BY_DIFFICULTY.get(question.difficulty, 10)
         current_user.xp += xp_awarded
-
-    db.commit()
-
-    return schemas.QuizAnswerResult(
-        is_correct=is_correct, correct_option=question.correct_option,
-        explanation=question.explanation, xp_awarded=xp_awarded, total_xp=current_user.xp,
-    )
+'''

@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.auth import get_current_user
-from app import models, schemas
+from app import models, schemas, gamification
 from app.gamification import XP_BY_DIFFICULTY
 from app.ai.quiz_generator import VALID_DIFFICULTIES
 from app.vocab_logic import (resolve_direction, resolve_mode, prompt_and_answer, build_distractors, is_fuzzy_match, FUZZY_MATCH_THRESHOLD,)
@@ -67,10 +67,12 @@ def answer_practice(payload: schemas.VocabAnswerRequest, db: Session = Depends(g
 
     db.add(attempt)
 
-    xp_awarded = 0
-    if is_correct:
-        xp_awarded = XP_BY_DIFFICULTY.get(word.difficulty, 10)
-        current_user.xp += xp_awarded
+    #xp_awarded = 0
+    #if is_correct:
+    #    xp_awarded = XP_BY_DIFFICULTY.get(word.difficulty, 10)
+     #   current_user.xp += xp_awarded
+
+    xp_awarded, unlocked = gamification.apply_vocab_result(db, current_user, word.difficulty, is_correct)
 
     db.commit()
 

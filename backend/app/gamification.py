@@ -62,7 +62,7 @@ def check_common_achievements(db: Session, user: models.User, unlocked: list,):
         _award(db, user, "AFRIKAANS_ROOKIE", unlocked,)
 
     if user.streak >= 7:
-        _award(db, user, "STREAK_ENDURER", unlocked,)    
+        _award(db, user, "AFRIKAANS_ENDURER", unlocked,)    
     if user.streak >= 30:
         _award(db, user, "STREAK_30", unlocked,)
 
@@ -155,14 +155,14 @@ def apply_pronounciation_result(
         xp_awarded = 5
 
     user.xp += xp_awarded
-    user.level - (user.xp // XP_PER_LEVEL) + 1
+    user.level = (user.xp // XP_PER_LEVEL) + 1
 
     update_streak(user)
 
     average_score = (db.query(models.PronounciationAttempt).filter(models.PronounciationAttempt.user_id == user.id, models.PronounciationAttempt.pronounciation_score.isnot(None),).with_entities(models.PronounciationAttempt.pronounciation_score).all())
 
     if average_score:
-        average = sum(score[0] for score in average_score) / len(average_score)
+        average = sum(row[0] for row in average_score) / len(average_score)
         if score >= 70:
             _award(db, user, "AFRIKAANS_AVERAGE_SPEAKER", unlocked,)
     check_common_achievements(db, user, unlocked,)

@@ -66,10 +66,18 @@ def _seed_vocab_words():
     finally:
         db.close()
 
+def _seed_achievemnets():
+    db = SessionLocal()
+    try:
+        ensure_achievement_defs(db)
+    finally:
+        db.close()
+
 @app.on_event("startup")
 def on_startup():
     _seed_sample_lessons()
     _seed_vocab_words()
+    _seed_achievemnets()
 
     
 @app.get("/")

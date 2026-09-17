@@ -7,7 +7,7 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.auth import get_current_user
-from app import models, schemas
+from app import models, schemas, gamification
 from app.gamification import XP_PER_LEVEL
 from app.ai.client import ai_available, chat
 from app.ai.asr import asr_available, transcribe_audio_file
@@ -47,6 +47,9 @@ def score_attempt(payload: schemas.PronounciationRequest, db: Session = Depends(
     attempt = models.PronounciationAttempt(user_id=current_user.id, target_phrase=payload.target_phrase, transcribed_text=payload.transcribed_text, pronounciation_score=score, feedback=feedback,)
 
     db.add(attempt)
+    db.flush()
+
+    gamification.apply_pronounciation_result(db, current_user, score)
     db.commit()
 
     return schemas.PronounciationResult(pronounciation_score=score, feedback=feedback)
