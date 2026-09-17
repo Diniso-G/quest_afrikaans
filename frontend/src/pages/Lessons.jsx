@@ -205,7 +205,45 @@ export default function Lessons(){
         )}
         </div>
 
-        <div className="section-title">Existing Lessons</div>
+        <div className="card" style={{marginTop: 50}}>
+            <h3>Afrikaans Grammar Basics</h3>
+            <p>A quick reference - no interaction needed, just read through.</p>
+
+            <div style={{marginTop: 12}}>
+                <b>Word order</b>
+                <p>Basic senteces follow Subject-Verb-Object, same as English: <i>Ek eet brood</i> (I eat bread). In questions, the verb moves to the front: <i>Eet jy brood?</i> (Do you eat bread?)</p>
+            </div>
+
+            <div style={{margin: 12}}>
+                <b>Articles: die / 'n </b>
+                <p><i>Die</i> means "the" - one form for every noun, no gender to worry about. <i>'n</i> means "a/an": <i>die huis</i> (the house), <i>'n huis</i> (a house).</p>
+            </div>
+
+            <div style={{margin: 12}}>
+                <b>Present tense verbs</b>
+                <p>Verbs don't change for person or number at all. One form fits everyone: <i>ek eet, jy eet, hy eet, ons eet, hulle eet</i> (I eat, you eat, he eats, we eat, they eat).</p>
+            </div>
+
+            <div style={{margin: 12}}>
+                <b>Past tense</b>
+                <p>Almost always formed with <i>het</i> + a <i>ge-</i> prefixed verb, rather than a separare past-tense form: <i>Ek het geëet</i> (I ate/have eaten).</p>
+            </div>
+
+            <div style={{margin: 12}}>
+                <b>Double negatives: nie...nie</b>
+                <p> Negative sentences use "nie" twice - one of Afrikaans' most distinctive features: <i>Ek verstaan nie</i> becomes <i>Ek verstaan dit nie</i> (I don't understand it). <i>Ek praat nie Afrikaanns nie</i> (I don't speak Afrikaans).</p>
+            </div>
+
+            <div style={{margin: 12}}>
+                <b>Diminutives: -jie/ -tjie</b>
+                <p>Added to nouns to mean "small" or as a term of affection, and used constantly in everyday speech: <i>huis</i> -- <i>husie</i> (little house), <i>boom</i> -- <i>boompie</i> (little tree).</p>
+            </div>
+
+        </div>
+        <div></div>
+
+        <div className="section-title" style={{marginTop: 70}}>Existing Lessons</div>
+
         {lessons.length === 0 ? (
             <p>No lessons yet - generate your first lesson above.</p>
         ) : (
