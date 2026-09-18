@@ -61,6 +61,14 @@ class DashboardStats(BaseModel):
     xp_to_next_level: int
     achievements: List[str]
 
+class HistoryItem(BaseModel):
+    type: str
+    label: str
+    detail: Optional[str] = None
+    correct: Optional[bool] = None
+    score: Optional[float] = None
+    created_at: datetime
+
 class QuizGenerateRequest(BaseModel):
     difficulty: str
     question_type: Optional[str] = None
