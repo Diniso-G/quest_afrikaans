@@ -11,3 +11,6 @@ class Settings(BaseSettings):
         env_file = ".env"
 
 settings = Settings()
+
+if not settings.secret_key:
+    raise RuntimeError("SECRET_KEY is not set. Add SECRET_KEY=<a long random string> to your .env file in backend/ before starting the app.")

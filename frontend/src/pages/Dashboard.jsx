@@ -84,7 +84,7 @@ export default function Dashboard() {
                     {!loadingHistory && history && history.length === 0 && (
                         <p style={{color: "var(--on-canvas-soft)"}}>No activity yet - go complete something!</p>
                     )}
-                    {!loadingHistory && history && history > 0 && (
+                    {!loadingHistory && history && history.length > 0 && (
                         <div className="card-grid">
                             {history.map((item, i) => (
                                 <div key={i} className="card-case">
@@ -94,7 +94,7 @@ export default function Dashboard() {
                                     <h3 className="case-title">{item.label}</h3>
                                     {item.detail && <p>{item.detail}</p>}
                                     {item.correct !== null && item.correct !== undefined && (
-                                        <span className={"achievement-chip"} style={{background: item.correct ? "var(--success" : "var(--rust)",}}>
+                                        <span className={"achievement-chip"} style={{background: item.correct ? "var(--success)" : "var(--rust)",}}>
                                             {item.correct ? "Correct" : "Incorrect"}
                                         </span>
                                     )}
