@@ -24,11 +24,19 @@ def _seed_sample_lessons():
     db = SessionLocal()
     try:
         if db.query(models.Lessons).count() == 0:
-            db.add_all([models.Lessons(title="Greetings", topic="greetings", level="Beginner", 
-                content="Learn the most common Afrikaans greetings and how to introduce yourself.",
+            db.add_all([
+                models.Lessons(title="Greetings", topic="greetings", level="Beginner", content="Learn the most common Afrikaans greetings and how to introduce yourself.",
                 example_sentences="Hallo, hoe gaan dit? | Hello, how are you? \nGoeie môre | Good morning\nAangename kennis | Nice to meet you",),
                 models.Lessons(title="Numbers 1- 10", topic="numbers", level="Beginner", content="Counting from een to tien, plus how to ask 'how many?'.",
-                    example_sentences="een, twee, drie, vier, vyf | one, two, three, four, five \nHoeveel? | How many?",
+                example_sentences="een, twee, drie, vier, vyf, ses, sewe, agt, nege, tien | one, two, three, four, five, six, seven, eight, nine, ten \nHoeveel? | How many?",),
+                models.Lessons(title="Everyday Conversation", topic="conversation", level="Intermediate", content="Common phrases for small talk, asking for help, and getting around.",
+                example_sentences="Waar is die badkamer? | Where is the bathroom? \nEkskuus, kan jy my help? | Excuse me, can you help me? \nHoeveel kos dit? | How much does this cost?",),
+                models.Lessons(title="Talking About the Past", topic="grammar", level="Intermediate", content="Afrikaans forms the past tense almost entirely with 'het' plus a 'ge-' prefixed verb.",
+                example_sentences="Ek het gisteren gewerk| I worked yesterday \nSy het die boek geless | She read the book \nOns het huis toe gegaan | We went home",),
+                models.Lessons(title="Opinions and Debate", topic="conversation", level="Advanced", content="Expressing opinions, agreeing and disagreeing, and giving reasons.",
+                example_sentences="Ek ding dit is 'n goeie idee | I think that's a good idea \nEk stem nie saam nie | I don't agree\nDit hang af van die situasie | It depends on the situation",),
+                models.Lessons(title="Idioms and Expressions", topic="idioms", level="Advanced", content="Common Afrikaans idioms that don't translate literally.",
+                example_sentences="Dis nie my kop se pyn nie | That's not my problem (lit: not my head's pain) \nMoenie se lelik lyk nie | Don't look so upset \nDit kom op dieselfde neer | It amounts to the same thing",
                 ),
             ])
             db.commit()
