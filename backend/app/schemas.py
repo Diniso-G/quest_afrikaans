@@ -1,15 +1,27 @@
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, Field, field_validator
 from typing import Optional, List
 from datetime import datetime
+
+EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
+
+def _validate_email(v: str) -> str:
+    if not EMAIL_RE.match(v):
+        raise ValueError("invalid email format")
+    return v
+
 
 class UserCreate(BaseModel):
     email: EmailStr
     username: str
     password: str = Field(min_length=8)
 
+    _validate_email = field_validator("email")(_validate_email)
+
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+
+    _validate_email = field_validator("email")(_validate_email)
 
 class Token(BaseModel):
     access_token: str

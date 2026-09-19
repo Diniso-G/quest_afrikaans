@@ -38,8 +38,6 @@ html, body, #root {
 body {
     margin: 0;
     background: var(--canvas);
-    background-image: radial-gradient(circle at 12% 8%, rgba(201, 154, 62, 0.08) 0%, transparent 42%),
-     radial-gradient(circle at 88% 92%, rgba(79, 121, 66, 0.10) 0%, transparent 45%);
     color: var(--on-canvas);
     font-family: var(--font-body);
     font-size: 15px;
